@@ -25,7 +25,7 @@ function onInputKeydown(event) {
       } else if (data.length === 1) {
         countryListEl.innerHTML = createFirstPartOfMarkup(data);
         countryInfoEL.innerHTML = createSecondPartOfMarkup(data);
-        countryInfoEL.style.visibility = 'visibility';
+        countryInfoEL.style.visibility = 'visible';
       } else if (data.length > 10) {
         console.log(data);
 
