@@ -1,24 +1,15 @@
 import './css/styles.css';
 import debounce from 'lodash.debounce';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { fetchCountries } from './js/fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
-const BASE_URL = 'https://restcountries.com/v3.1/name/';
 
 const inputEl = document.querySelector('#search-box');
 const countryListEl = document.querySelector('.country-list');
 const countryInfoEL = document.querySelector('.country-info');
 
 inputEl.addEventListener('input', debounce(onInputKeydown, DEBOUNCE_DELAY));
-
-const fetchCountries = name => {
-  return fetch(`${BASE_URL}${name.trim()}`).then(response => {
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
-    return response.json();
-  });
-};
 
 function onInputKeydown(event) {
   if (!event.target.value) {
@@ -63,16 +54,16 @@ function createFirstPartOfMarkup(arr) {
 function createSecondPartOfMarkup(arr) {
   return arr
     .map(({ capital, languages, population }) => {
-      return `<p>capital: ${capital}</p>
-                <p>language: ${Object.values(languages)}</p>
-                <p>population: ${population}</p>`;
+      return `<h3>Capital: ${capital}</h3>
+                <h3>Language: ${Object.values(languages)}</h3>
+                <h3>Population: ${population}</h3>`;
     })
     .join('');
 }
 
 function clearMarkup() {
-  //   countryInfoEL.style.visibility = 'hidden';
-  //   countryListEl.style.visibility = 'hidden';
+  countryInfoEL.style.visibility = 'hidden';
+  countryListEl.style.visibility = 'hidden';
   countryListEl.innerHTML = '';
   countryInfoEL.innerHTML = '';
 }
