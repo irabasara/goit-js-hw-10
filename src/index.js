@@ -12,11 +12,6 @@ const countryInfoEL = document.querySelector('.country-info');
 inputEl.addEventListener('input', debounce(onInputKeydown, DEBOUNCE_DELAY));
 
 function onInputKeydown(event) {
-  if (!event.target.value) {
-    clearMarkup();
-    return;
-  }
-  console.log(event.target.value);
   fetchCountries(event.target.value)
     .then(data => {
       if (data.length <= 10 && data.length >= 2) {
@@ -27,15 +22,12 @@ function onInputKeydown(event) {
         countryInfoEL.innerHTML = createSecondPartOfMarkup(data);
         countryInfoEL.style.visibility = 'visible';
       } else if (data.length > 10) {
-        console.log(data);
-
         Notify.info(
           'Too many matches found. Please enter a more specific name.'
         );
       }
     })
     .catch(error => {
-      clearMarkup();
       Notify.failure('Oops, there is no country with that name');
     });
 }
@@ -61,9 +53,9 @@ function createSecondPartOfMarkup(arr) {
     .join('');
 }
 
-function clearMarkup() {
-  countryInfoEL.style.visibility = 'hidden';
-  countryListEl.style.visibility = 'hidden';
-  countryListEl.innerHTML = '';
-  countryInfoEL.innerHTML = '';
-}
+// inputEl.addEventListener('keydown', event => {
+//   if (event.code === 'Backspace') {
+//     countryListEl.innerHTML = '';
+//     countryInfoEL.innerHTML = '';
+//   }
+// });
