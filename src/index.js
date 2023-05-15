@@ -28,6 +28,8 @@ function onInputKeydown(event) {
       }
     })
     .catch(error => {
+      countryListEl.innerHTML = '';
+      countryInfoEL.innerHTML = '';
       Notify.failure('Oops, there is no country with that name');
     });
 }
@@ -52,10 +54,3 @@ function createSecondPartOfMarkup(arr) {
     })
     .join('');
 }
-
-// inputEl.addEventListener('keydown', event => {
-//   if (event.code === 'Backspace') {
-//     countryListEl.innerHTML = '';
-//     countryInfoEL.innerHTML = '';
-//   }
-// });
